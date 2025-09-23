@@ -1,10 +1,13 @@
-// src/chat/dto/create-message.dto.ts
-import { IsNotEmpty, IsString } from 'class-validator';
+import { IsNotEmpty, IsOptional, IsString } from 'class-validator';
 
 export class CreateMessageDto {
+    @IsOptional()
     @IsString()
-    @IsNotEmpty()
-    receiverId: string; // bisa userId atau groupId
+    receiverId?: string;
+
+    @IsOptional()
+    @IsString()
+    groupId?: string;
 
     @IsString()
     @IsNotEmpty()

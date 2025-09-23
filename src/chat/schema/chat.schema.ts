@@ -6,12 +6,19 @@ export class Chat {
   @Prop({ required: true })
   senderId: string;
 
-  @Prop({ required: true })
-  receiverId: string;
+  @Prop()
+  receiverId?: string;
+
+  @Prop()
+  groupId?: string;
 
   @Prop({ required: true })
   message: string;
+
+  @Prop({ default: false })
+  isRead: boolean;
 }
+
 
 export type ChatDocument = Chat & Document;
 export const ChatSchema = SchemaFactory.createForClass(Chat);
