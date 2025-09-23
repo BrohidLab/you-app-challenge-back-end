@@ -11,6 +11,10 @@ export class Group {
 
     @Prop()
     lastMessage?: string;
+
+    createdAt?: Date;
+    
+    updatedAt?: Date;
 }
 
 

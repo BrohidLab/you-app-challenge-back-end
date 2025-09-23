@@ -17,6 +17,10 @@ export class Chat {
 
   @Prop({ default: false })
   isRead: boolean;
+
+  createdAt?: Date;
+
+  updatedAt?: Date;
 }
 
 

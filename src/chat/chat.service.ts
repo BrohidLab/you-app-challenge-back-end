@@ -48,7 +48,9 @@ export class ChatService {
 
     return {
       chats: [...formattedPersonal, ...formattedGroup].sort(
-        (a, b) => +new Date(b.updatedAt) - +new Date(a.updatedAt),
+        (a, b) =>
+          +new Date(b.updatedAt ?? new Date(0)) -
+          +new Date(a.updatedAt ?? new Date(0)),
       ),
     };
   }
