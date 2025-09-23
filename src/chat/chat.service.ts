@@ -12,7 +12,6 @@ export class ChatService {
   ) {}
 
   async getChatList(userId: string) {
-    // personal chats
     const personalChats = await this.chatModel
       .find({
         $or: [{ senderId: userId }, { receiverId: userId }],
