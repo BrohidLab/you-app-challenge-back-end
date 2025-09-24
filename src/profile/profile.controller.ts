@@ -27,7 +27,7 @@ import {
 import { ProfileResponseDto } from './dto/profile-respone.dto';
 
 @ApiTags('Profile')
-@ApiBearerAuth()
+@ApiBearerAuth('access-token')
 @Controller('profile')
 export class ProfileController {
     constructor(private readonly profileService: ProfileService) {}

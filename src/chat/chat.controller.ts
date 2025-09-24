@@ -6,6 +6,7 @@ import { AuthGuard } from '@nestjs/passport';
 import { GetUser } from 'src/auth/get-user.decorator';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { 
+  ApiBearerAuth,
   ApiBody, ApiOperation, ApiResponse, ApiTags 
 } from '@nestjs/swagger';
 import { ChatResponseDto } from './dto/chat-response.dto';
@@ -14,13 +15,16 @@ import { GroupResponseDto } from './dto/group-response.dto';
 import { NotificationResponseDto } from './dto/notification-response.dto';
 import { PersonalMessageDto } from './dto/personal-message-response.dto';
 import { MarkAsReadResponseDto } from './dto/read-message-response.dto';
+import { CreateGroupDto } from './dto/create-group.dto';
 
 @ApiTags('Chat')
+@ApiBearerAuth('access-token')
 @Controller('chat')
 @UseGuards(AuthGuard('jwt'))
 export class ChatController {
   constructor(private readonly chatService: ChatService) {}
 
+  
   @Get('list')
   @ApiOperation({ summary: 'Ambil daftar chat user' })
   @ApiResponse({ status: 200, type: [ChatListResponseDto] })
@@ -84,7 +88,7 @@ export class ChatController {
   @ApiResponse({ status: 201, type: GroupResponseDto })
   async createGroup(
     @Req() req, 
-    @Body() dto: { name: string; members: string[] }
+    @Body() dto: CreateGroupDto
   ) {
     return this.chatService.createGroup(dto.name, dto.members, req.user.userId);
   }

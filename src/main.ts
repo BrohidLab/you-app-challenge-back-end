@@ -10,17 +10,23 @@ async function bootstrap() {
     whitelist: true,
     forbidNonWhitelisted: false,
   }));
-  app.setGlobalPrefix('api');
-  
+  app.enableCors();
+
   const config = new DocumentBuilder()
     .setTitle('YouApp API Docs')
     .setDescription('Dokumentasi API untuk Auth, Profile, dan Chat')
     .setVersion('1.0')
-    .addBearerAuth()
+    .addBearerAuth(
+      { type: 'http', scheme: 'bearer', bearerFormat: 'JWT' },
+      'access-token', 
+    )
+    .addServer('/api')
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('api-docs', app, document);
+  SwaggerModule.setup('api/api-docs', app, document);
+  
+  app.setGlobalPrefix('api');
 
   await app.listen(process.env.PORT ?? 3000);
 }
